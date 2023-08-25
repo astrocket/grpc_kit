@@ -38,6 +38,12 @@ module GrpcKit
       end
     end
 
+    class Ok < BadStatus
+      def initialize(message)
+        super(GrpcKit::StatusCodes::OK, message)
+      end
+    end
+
     class Cancelled < BadStatus
       # @param message [String]
       def initialize(message)
@@ -158,6 +164,7 @@ module GrpcKit
     end
 
     CODES = {
+      GrpcKit::StatusCodes::OK => Ok,
       GrpcKit::StatusCodes::CANCELLED => Cancelled,
       GrpcKit::StatusCodes::UNKNOWN => Unknown,
       GrpcKit::StatusCodes::INVALID_ARGUMENT => InvalidArgument,
